@@ -2,6 +2,10 @@ from django.shortcuts import render, redirect
 from .models import Product
 from django.contrib.auth import authenticate, login, logout #for enabling the authentication process.
 from django.contrib import messages # for feedback
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
+from django import forms
+from .forms import SignUpForm
 
 
 # Create your views here.
@@ -34,3 +38,23 @@ def logout_user(request):
     logout(request)
     messages.success(request, ("You have been logged out, Hope to see you soon."))
     return redirect('home')
+
+
+def register_user(request):
+    form = SignUpForm()
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password1']
+            # log in user
+            user = authenticate(request, username=username, password=password)
+            login(request, user)
+            messages.success(request, ('You have been registered, you can now login and logout'))
+            return redirect('home')
+        else:
+            messages.success(request, ('There was an error during account registration, try agin'))
+            return redirect('register')
+    else:
+        return render(request, 'register.html', {'form': form})
