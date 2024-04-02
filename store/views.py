@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Product
+from .models import Product, Category
 from django.contrib.auth import authenticate, login, logout #for enabling the authentication process.
 from django.contrib import messages # for feedback
 from django.contrib.auth.models import User
@@ -62,3 +62,16 @@ def register_user(request):
             return redirect('register')
     else:
         return render(request, 'register.html', {'form': form})
+
+def category(request, name):
+    # replacing - for ' '
+    name = name.replace('-', ' ')
+#     checking for the category from the url
+    try:
+    #     look up the category
+        category = Category.objects.get(name=name)
+        products = Product.objects.filter(category=category)
+        return render(request, 'category.html', {'products': products, 'category': category})
+    except:
+        messages.error(request, 'That category does not exist!!')
+        return redirect('home')

@@ -6,6 +6,7 @@ import datetime
 # these are the categories
 class Category(models.Model):
     name = models.CharField(max_length=50)
+    image = models.ImageField(upload_to='assets/cover', default='default.jpg')
 
     def __str__(self):
         return self.name
