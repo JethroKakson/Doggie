@@ -31,9 +31,33 @@ Doggie - About Page
                   {% else %}
                     ${{product.price}}
                   {% endif %}
+                  <br><br>
+                  <button type="button" value="{{product.id}}" id="add-cart" class="btn btn-success">Add to cart</button>
               </div>
             </div>
           </div>
         </div>
     </div>
+
+    <script>
+    // check if button pressed
+        $(document).on('click', '#add-cart', function(e){
+            e.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: '{% url 'cart_add' %}',
+                data: {
+                    product_id: $('#add-cart').val(),
+                    csrfmiddlewaretoken: '{{ csrf_token }}',
+                    action: 'post'
+                },
+                success: function(json){
+                    console.log(json)
+                },
+                error: function(xhr, errmsg, err){
+
+                }
+            });
+        });
+    </script>
 {% endblock %}
