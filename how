@@ -1,0 +1,14 @@
+for the cart we need to have a new app in our project.
+we shall have four urls for this app. cart page, add, update, delete
+SESSIONS are the ways of how we can keep trackof the users information even if they logout and come back after a week.
+    we do this by creating a cart.py file where we write the code for the Cart to be able to access the session key for each user
+    and so that the user who has no key one is created for them.
+    After the class creation, we have to create context_processor.py to handle our sessions.
+    After the creation of the context processor, we need to make django know that the context processor exists.
+    for this we go to the settings.py file and go to the templates list and add the cart.context_processors.cart under context processors
+    After we do this thats all then django will be able to take track of the sessions for each user.
+    to check the sessions, we go to our terminal and access the shell then import Session from django.contrib.session.models
+    copy session key from the browser and get it with Session.objects.get(pk='the_key') then decode it with get_decoded()
+
+Adding items to the cart
+    here we shall habve to first add jQuery to our base.html
