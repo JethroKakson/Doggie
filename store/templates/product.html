@@ -53,6 +53,7 @@ Doggie - About Page
                 },
                 success: function(json){
                     console.log(json)
+                    document.getElementById('cart_quantity').textContext = json.qty
                 },
                 error: function(xhr, errmsg, err){
 

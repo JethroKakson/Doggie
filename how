@@ -18,3 +18,9 @@ Adding items to the cart
     Ajax is used in this because it helps something to be loaded in the backend of a website without having to refresh the website
     in our views we need to be able to access the items in the cart so we shall have to import Cart class. this will give us the access to all the items in the cart
     and also we have to import our products model. we also have to send a json response through JsonResponse from django.http, and also import get_object_or_404 from django.shortcuts
+    also we have tocreate the add function in our cart.py file
+
+updating the cart button
+    we shall need to find the palce where the cart number is so that we can update it. here we add the id eg 'cart_quantity' so that we can use the jquery
+    after that we need to go to the cart file we created and add the __len__ function so that we can find the length of the cart dict.
+    After edit the views in the cart. edit the json, use the length filter because we used __len__ function so django knows everything so it will handle them well
