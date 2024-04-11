@@ -24,3 +24,9 @@ updating the cart button
     we shall need to find the palce where the cart number is so that we can update it. here we add the id eg 'cart_quantity' so that we can use the jquery
     after that we need to go to the cart file we created and add the __len__ function so that we can find the length of the cart dict.
     After edit the views in the cart. edit the json, use the length filter because we used __len__ function so django knows everything so it will handle them well
+
+reflecting the items in the cart on the cart page.
+    we shall have to write a new function in the cart.py file that will give us the control over the the items in the cart so that we can get them on to our page.
+    so in the new function we create get the cart keys eg prod_id = self.cart.keys() because all these items are being added into a dictionary
+    after that we have to check if the products are really in the Products model. if there, they are returned.
+    we then go to the views.py and edit the cart_summary view. first we get the cart and then products
