@@ -30,3 +30,16 @@ reflecting the items in the cart on the cart page.
     so in the new function we create get the cart keys eg prod_id = self.cart.keys() because all these items are being added into a dictionary
     after that we have to check if the products are really in the Products model. if there, they are returned.
     we then go to the views.py and edit the cart_summary view. first we get the cart and then products
+
+for the product quantity
+    we get the select tag and fill it with the maximum items a buyer can get and be able to make the sure you give it an id so that it links up with the jquery in the code
+    give it an id that you will be able to reference in the jquery part and make sure hthe id reference is the same in the jquery.
+    so with this the jquery will be sending all the info to the url so we have to go the url and make sure the quantity reflects in the cart add function.
+    after the id is where youcan reference the quantity that you need to be reflected on the cart.
+    make sure the value you have added for quantity reflects on the views and also on the cart.py add function because it is the fucntion that caters for the things added to the cart.
+
+when we add this select to our cart summary page the select shows that we have to select the quantity all over again.
+    to fix this we shall go to the views and edit the cart_summary view
+    so we shall troduce a quantities variable and give it a value of cart.get_quants which we shall be creating in a minute.
+    so make sure that this quantities show in the context of the cart summary
+    after the modification we shall have to make the changes reflect in the select.
