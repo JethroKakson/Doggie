@@ -43,3 +43,5 @@ when we add this select to our cart summary page the select shows that we have t
     so we shall troduce a quantities variable and give it a value of cart.get_quants which we shall be creating in a minute.
     so make sure that this quantities show in the context of the cart summary
     after the modification we shall have to make the changes reflect in the select.
+
+as we update our cart we need to distinguish al the items from each otherthat is why since the same button appears on all the the cards we need to give them a data-index which will be the product.id
