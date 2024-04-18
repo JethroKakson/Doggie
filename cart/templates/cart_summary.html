@@ -60,6 +60,7 @@ Doggie - Home Page
                   </div>
                   <br><br>
                   <button type="button" data-index="{{product.id}}" class="btn btn-secondary update-cart" >update</button>
+                  <button type="button" data-index="{{product.id}}" class="btn btn-danger delete-product" >Remove from cart</button>
               </div>
             </div>
           </div>
@@ -100,5 +101,26 @@ Doggie - Home Page
                 }
             });
         });
-    </script>
+
+    // check if button pressed delete item
+        $(document).on('click', '.delete-product', function(e){
+            e.preventDefault();
+
+            $.ajax({
+                type: 'POST',
+                url: '{% url 'cart_delete' %}',
+                data: {
+                    product_id: $(this).data('index),
+                    csrfmiddlewaretoken: '{{ csrf_token }}',
+                    action: 'post'
+                },
+                success: function(json){
+                    location.reload();
+                },
+                error: function(xhr, errmsg, err){
+
+                }
+            });
+        });
+</script>
 {% endblock %}

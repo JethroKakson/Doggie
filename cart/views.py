@@ -35,7 +35,14 @@ def cart_add(request):
         return response
 
 def cart_delete(request):
-    pass
+    cart = Cart(request)
+    if request.POST.get('action') == 'post':  # this is because in ajax we used the lowercase post for the action
+        #         get stuff
+        product_id = int(request.POST.get('product_id'))
+        cart.delete(product=product_id)
+
+        response = JsonResponse({'product': product_id})
+        return response
 
 
 def cart_update(request):
