@@ -9,8 +9,9 @@ def cart_summary(request):
     cart = Cart(request)
     # getting the products from the cart
     cart_products = cart.get_products
+    totals = cart.cart_total()
     quantities = cart.get_quants
-    return render(request, 'cart_summary.html', {"cart_products": cart_products, 'quantities': quantities})
+    return render(request, 'cart_summary.html', {"cart_products": cart_products, 'quantities': quantities, 'totals': totals})
 
 
 def cart_add(request):
@@ -50,10 +51,10 @@ def cart_update(request):
     if request.POST.get('action') == 'post':  # this is because in ajax we used the lowercase post for the action
         #         get stuff
         product_id = int(request.POST.get('product_id'))
-        product_qty = int(request.POST.get('product_qty'))
+        product_qty = str(request.POST.get('product_qty'))
 
         cart.update(product=product_id, quantity=product_qty)
-        response = JsonResponse({'qty':product_qty})
+        response = JsonResponse({'qty': product_qty})
         return response
 
 

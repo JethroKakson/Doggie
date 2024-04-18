@@ -66,6 +66,8 @@ Doggie - Home Page
           </div>
         </div><br>
             {% endfor %}
+            <h3>Total: ${{totals}}</h3>
+            <br><br>
             {% else %}
                 <div class="container">
                     <h1>There is nothing in your cart!</h1>
@@ -81,26 +83,27 @@ Doggie - Home Page
         $(document).on('click', '.update-cart', function(e){
             e.preventDefault();
             // grab product id
-            var productid = $(this).data('index);
+            var productid = $(this).data('index');
+
             $.ajax({
                 type: 'POST',
                 url: '{% url 'cart_update' %}',
                 data: {
-                    product_id: $(this).data('index),
+                    product_id: $(this).data('index'),
                     product_qty: $('#select' + productid + 'option:selected').text(),
                     csrfmiddlewaretoken: '{{ csrf_token }}',
                     action: 'post'
                 },
                 success: function(json){
-                    console.log(json)
-                    document.getElementById('cart_quantity').textContext = json.qty
+                    //console.log(json)
+                    //document.getElementById('cart_quantity').textContext = json.qty
                     location.reload();
                 },
                 error: function(xhr, errmsg, err){
 
                 }
             });
-        });
+        })
 
     // check if button pressed delete item
         $(document).on('click', '.delete-product', function(e){
@@ -110,17 +113,18 @@ Doggie - Home Page
                 type: 'POST',
                 url: '{% url 'cart_delete' %}',
                 data: {
-                    product_id: $(this).data('index),
+                    product_id: $(this).data('index'),
                     csrfmiddlewaretoken: '{{ csrf_token }}',
                     action: 'post'
                 },
                 success: function(json){
+                    console.log("wow it worked")
                     location.reload();
                 },
                 error: function(xhr, errmsg, err){
 
                 }
             });
-        });
+        })
 </script>
 {% endblock %}
