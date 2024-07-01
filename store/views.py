@@ -5,7 +5,25 @@ from django.contrib import messages # for feedback
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
-from .forms import SignUpForm
+from .forms import SignUpForm, UpdateUserForm
+
+
+def update_user(request):
+    if request.user.is_authenticated:
+        current_user = User.objects.get(id=request.user.id)
+        form = UpdateUserForm(request.POST or None, instance=current_user)
+
+        if form.is_valid():
+            form.save()
+            login(request, current_user)
+            messages.success(request, "User has been updated!!")
+            return redirect('home')
+        return render(request, 'update_user.html', {'form': form})
+    else:
+        messages.success(request, "You must be logged in!")
+        return redirect('home')
+
+    # return render(request, 'update_user.html', {'form': form})
 
 
 # Create your views here.
