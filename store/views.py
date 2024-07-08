@@ -5,7 +5,31 @@ from django.contrib import messages # for feedback
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
-from .forms import SignUpForm, UpdateUserForm
+from .forms import SignUpForm, UpdateUserForm, PasswordForm
+
+
+def update_password(request):
+    if request.user.is_authenticated:
+        user = request.user
+        # Did they fill out the form
+        if request.method == 'POST':
+            form = PasswordForm(user, request.POST)
+            # is the form vcalid?
+            if form.is_valid():
+                form.save()
+                messages.success(request, "Your password has been set successfully")
+                return redirect('login')
+            else:
+                for error in list(form.errors.values()):
+                    messages.error(request, error)
+                    return redirect('update_password')
+        else:
+            form = PasswordForm(user)
+            return render(request, 'update_password.html', {'form': form})
+    else:
+        messages.success(request, "You must be logged in")
+        return redirect('home')
+    # return render(request, 'update_password.html', {'form': form})
 
 
 def update_user(request):

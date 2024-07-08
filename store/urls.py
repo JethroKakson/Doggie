@@ -7,6 +7,7 @@ urlpatterns = [
     path('login/', views.login_user, name='login'), # we name them login_user because django also has a function called login.
     path('logout/', views.logout_user, name='logout'),
     path('register/', views.register_user, name='register'),
+    path('update_password/', views.update_password, name='update_password'),
     path('update_user/', views.update_user, name='update_user'),
     path('product/<int:pk>', views.product, name='product'),
     path('category/<str:name>', views.category, name='category'),
